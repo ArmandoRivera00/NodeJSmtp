@@ -3,12 +3,12 @@ import User from "../models/user.model.js";
 
 const router = express.Router();
 
-router.get("/all", (req, res) =>{
+router.get("/index", (req, res) =>{
     //logic
 })
 
 router.get("/login", (req, res) => {
-    res.render("pages/login", { title: "Login"})
+    res.render("pages/login", { title: "Login", message: ""})
     //logic
 })
 
@@ -25,9 +25,10 @@ router.post('/login', (req, res) => {
             password: req.body.password
         }
     }).then((user) => {
-        console.log(user.users.dataValues);
-        res.render("pages/index", { user: user})
+        
+        res.render("pages/index", { user: user, title: "Homepage"})
     }).catch((err) => {
+        res.render('pages/login',{ message: err, title: "Login"})
         console.log(err);
     })
 })
